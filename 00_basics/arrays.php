@@ -4,6 +4,8 @@ Array ist ein Datentyp für eine Variable.
 In einem Array können, in einer Variable, null bis beliebig viele Werte gespeichert werden.
 Ein Array erlaubt doppelte Einträge: ["Hansi", "Susi", "Rudi", "Susi"]
 
+Bei einem Array können jederzeit Elemente hinzugefügt oder gelöscht werden.
+
 Was muss ich beim Erstellen eines neuen Arrays wissen?
 name: wie nenne ich die Variable mit dem Array?
 type: Datentyp der Variable --> steht fest: Array
@@ -12,6 +14,7 @@ initValues: welche Startwerte soll mein Array enthalten?
 Code: $name = [initValues];
 
 In einem Array hat jeder Eintrag (Element) einen eindeutigen Index.
+Es gibt numerische und textuelle Indizes. 
 Das erste Element im Array hat den Index 0. Das Zweite den Index 1, ... 
 --> Arrays sind Zero-Based!
 
@@ -75,6 +78,7 @@ printArray($fruits);
 
 
 // Ein Element an einem bestimmten Index ersetzen (replace des Wertes)
+// $arr[index] = wert
 echo 'Ersetze Element am Index 0:<br>';
 $fruits[0] = 'Bananas';
 printArray($fruits);
