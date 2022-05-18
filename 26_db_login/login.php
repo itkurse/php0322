@@ -4,6 +4,8 @@ require_once 'db/dbconnection.inc.php';
 require_once 'model/models.inc.php';
 require_once 'service/userservice.inc.php';
 
+print_r($_SESSION);
+
 // Erstellen der Datenbankverbindung (Aufbau)
 $conn = db_connection();
 

@@ -127,6 +127,71 @@ class UserService
         return $_SESSION['logged_in_user_id'];
     }
 
+
+    // Prüft ob der aktuelle User angemeldet ist
+    // Gibt TRUE zurück wenn User angemeldet ist, ansonsten FALSE 
+    public function isLoggedIn(){
+        if(isset($_SESSION['logged_in_user_id'])){
+            return TRUE;
+        } else {
+            return FALSE; 
+        }
+    }
+
+
+    // Sucht einen User anhand der ID in der Datenbank
+    // Gibt den User als Objekt der Klasse User zurück, oder FALSE wenn User nicht gefunden wurde
+    function getUserById(int $id) : User | bool 
+    {
+        $ps = $this->conn->prepare('
+            SELECT * 
+            FROM users 
+            WHERE id = :id 
+        ');
+        $ps->bindValue('id', $id);
+        $ps->execute();
+
+        while($row = $ps->fetch())
+        {
+            // Erstelle ein neues Objekt der Klasse User
+            $user = new User($row['id'], $row['email'], $row['password'], 
+                            $row['firstname'], $row['lastname'], $row['is_admin']);
+
+            // Gebe das Objekt der Klasse User zurück
+            return $user;
+        }
+
+        // wenn wir keinen User gefunden haben, FALSE zurückgeben
+        return FALSE; 
+    }
+
+
+    // Lädt alle User aus der Datenbank
+    // Gibt ein Array von Objekten der Klasse User zurück 
+    public function getUsers() : array 
+    {
+        $ps = $this->conn->prepare('
+            SELECT * 
+            FROM users 
+        ');
+        $ps->execute();
+
+        // Alle gefundenen User werden in diesem Array gespeichert
+        $users = [];
+
+        // Erzeuge für jeden gefunden Datensatz ein Objekt der Klasse User
+        // und füge dieses Objekt in das Array $users ein. 
+        while($row = $ps->fetch())
+        {
+            // erzeuge ein neues Objekt der Klasse User
+            $user = new User($row['id'], $row['email'], $row['password'],
+                            $row['firstname'], $row['lastname'], $row['is_admin']);
+            // füge das Objekt in das Array ein
+            $users[] = $user;
+        }
+        return $users; 
+    }
+
 }
 
 

@@ -1,5 +1,30 @@
 <?php
+session_start();
+require_once 'db/dbconnection.inc.php';
+require_once 'model/models.inc.php';
+require_once 'service/userservice.inc.php';
 
+// Datenbanverbindung
+$conn = db_connection();
+
+if(isset($_POST['bt_logout']))
+{
+    /*
+    Wir möchten die Funktion logout() in der Klasser UserService aufrufen. 
+    Um eine Funktion in einer Klasse aufrufen zu können wird ein Objekt der Klasse benötigt.
+
+    Erstellen eines neuen Objekts: new Klassenname()
+    */
+    $userService = new UserService($conn);
+
+    // für das Objekt die Funktion logout() aufrufen
+    $userService->logout();
+
+    // Weiterleitung zum Login
+    header('Location: ./login.php');
+    return;
+    
+}
 
 ?>
 <!DOCTYPE html>
