@@ -1,0 +1,48 @@
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.center-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    border-bottom: 1px solid grey;
+}
+
+.title {
+    font-size: 24px;
+    padding: 8px;
+}
+
+header nav {
+    margin-bottom: 8px;
+}
+
+header nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline-block;
+}
+
+header nav ul li a {
+    padding: 16px;
+    text-align: center;
+    text-decoration: none;
+    color: rgb(255, 99, 125);
+    font-weight: bold;
+}
+
+
+.errors {
+    background-color: red;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: bold;
+}
