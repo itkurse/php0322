@@ -36,5 +36,32 @@ class UserService
 
         return $this->conn->lastInsertId();
     }
+
+
+    // Liest alle User aus der Datenbank aus und gibt sie als Array der Klasse 
+    // User zurück 
+    public function getUsers() : array 
+    {
+        $ps = $this->conn->prepare('
+            SELECT * 
+            FROM user 
+        ');
+        $ps->execute();
+
+        // Array definieren in dem alle gefundenen User als Objekt der Klasse User
+        // gespeichert werden
+        $users = []; 
+
+        // Schleife in der wir über jeden gefundenen Datensatz iterieren
+        while($row = $ps->fetch())
+        {
+            $birthdate = DateTime::createFromFormat('Y-m-d', $row['birthdate']);
+            // aus einem Datensatz ein Objekt erzeugen
+            $users[] = new User($row['id'], $row['firstname'], $row['lastname'],
+                                $row['email'], $row['password'], $birthdate, 
+                                $row['is_admin']);
+        }
+        return $users; 
+    }
 }
 ?>

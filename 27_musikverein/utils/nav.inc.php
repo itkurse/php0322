@@ -19,6 +19,12 @@
                 <li>
                     <a href="skills.php">Skills</a>
                 </li>
+                <li>
+                    <a href="users.php">Mitglieder</a>
+                </li>
+                <li>
+                    <a href="events.php">Events</a>
+                </li>
             </ul>
         </nav>
 </header>

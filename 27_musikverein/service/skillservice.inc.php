@@ -113,6 +113,52 @@ class SkillService
         }
         return FALSE; 
     }
+
+
+    // Trägt für einen User alle angegebenen Skills in der Datenbank ein
+    // Übergeben wird die User-ID sowie ein Array von Skill-IDs
+    public function createUserSkills(int $userId, array $skillIds)
+    {
+        // für jede Skill-ID im Array:
+        foreach($skillIds as $skillId)
+        {
+            $ps = $this->conn->prepare('
+                INSERT INTO user_skill 
+                (user_id, skill_id) 
+                VALUES 
+                (:userId, :skillId)
+            ');
+            $ps->bindValue('userId', $userId);
+            $ps->bindValue('skillId', $skillId);
+            $ps->execute();
+        }
+    }
+
+
+    // Lädt die Skills des Users aus der Datenbank
+    // Gibt ein Array von Objekten der Klasse Skill zurück 
+    public function getSkillsByUserId(int $userId) : array 
+    {
+        // Verknüpfung der Zwischentabelle user_skill mit skill
+        // beim SELECT holen wir uns jedoch nur die Infos aus der Skill-Tabelle heraus 
+        // ... damit ich weiß welche Skills die Person hat, muss jedoch zuvor die 
+        // Verknüpfung mit dem INNER JOIN geschehen 
+        $ps = $this->conn->prepare('
+            SELECT s.id AS id, s.name AS name  
+            FROM user_skill us 
+            INNER JOIN skill s ON (us.skill_id = s.id)
+            WHERE us.user_id = :userId 
+        ');
+        $ps->bindValue('userId', $userId);
+        $ps->execute();
+
+        $skills = [];
+        while($row = $ps->fetch())
+        {
+            $skills[] = new Skill($row['id'], $row['name']);
+        }
+        return $skills; 
+    }
 }
 
 ?>

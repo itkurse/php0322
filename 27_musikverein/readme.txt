@@ -13,3 +13,7 @@ Seite skill.php?skill_id=<id>
 Registrierung:
 Seite registration.php 
 - Formular um einen neuen User zu erfassen 
+
+Auflistung aller User:
+Seite users.php 
+- Listet alle User mit ihren Fähigkeiten auf 

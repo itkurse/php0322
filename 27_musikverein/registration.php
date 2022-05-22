@@ -32,6 +32,14 @@ if(isset($_POST['bt_create_user']))
     if(count($errors) == 0)
     {
         // dann Registrierung durchführen 
+        $userId = $userService->createUser($firstname, $lastname, $email, $password, 
+                                $birthdateAsDateTime, false);
+
+        // Skills dem User zuweisen
+        $skillService->createUserSkills($userId, $skill_ids);
+
+        header('Location: ./index.php?created_user_id='.$userId);
+        return;
     }
 
 }
